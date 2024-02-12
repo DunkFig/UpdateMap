@@ -1,0 +1,335 @@
+[
+    {
+        "Name": "Albania",
+        "Population": "2793385",
+        "Area": "28,748",
+        "Mil Percent GDP": "1.5",
+        "GDP": "15131866271",
+        "Country Code": "AL",
+        "Alliance": "NATO"
+    },
+    {
+        "Name": "Belgium",
+        "Population": "11778842",
+        "Area": "30,528",
+        "Mil Percent GDP": "1.1",
+        "GDP": "521676942135",
+        "Country Code": "BE",
+        "Alliance": "NATO"
+    },
+    {
+        "Name": "Bulgaria",
+        "Population": "6919180",
+        "Area": "110,879",
+        "Mil Percent GDP": "1.8",
+        "GDP": "69889347433",
+        "Country Code": "BG",
+        "Alliance": "NATO"
+    },
+    {
+        "Name": "Canada",
+        "Population": "38943231",
+        "Area": "9,984,670",
+        "Mil Percent GDP": "1.4",
+        "GDP": "1645423407568",
+        "Country Code": "CA",
+        "Alliance": "NATO"
+    },
+    {
+        "Name": "Croatia",
+        "Population": "3901833",
+        "Area": "56,594 ",
+        "Mil Percent GDP": "1.8",
+        "GDP": "79163000000",
+        "Country Code": "HR",
+        "Alliance": "NATO"
+    },
+    {
+        "Name": "Czech Republic",
+        "Population": "10702596",
+        "Area": "78,867 ",
+        "Mil Percent GDP": "1.4",
+        "GDP": "245339322067",
+        "Country Code": "CZ",
+        "Alliance": "NATO"
+    },
+    {
+        "Name": "Denmark",
+        "Population": "5958380",
+        "Area": "43,094 ", 
+        "Mil Percent GDP": "1.4",
+        "GDP": "356084867686",
+        "Country Code": "DK",
+        "Alliance": "NATO"
+    },
+    {
+        "Name": "Estonia",
+        "Population": "1220042",
+        "Area": "45,228 ",
+        "Mil Percent GDP": "2.3",
+        "GDP": "30650285472",
+        "Country Code": "EE",
+        "Alliance": "NATO"
+    },
+    {
+        "Name": "Finland",
+        "Population": "5566000",
+        "Area": "338,455 ",
+        "Mil Percent GDP": "1.5",
+        "GDP": "269751000000",
+        "Country Code": "FI",
+        "Alliance": "NATO"
+    },
+    {
+        "Name": "France",
+        "Population": "68084217",
+        "Area": "643,427 ",
+        "Mil Percent GDP": "2.1",
+        "GDP": "2630317731455",
+        "Country Code": "FR",
+        "Alliance": "NATO"
+    },
+    {
+        "Name": "Germany",
+        "Population": "79903481",
+        "Area": "357,022 ",
+        "Mil Percent GDP": "1.4",
+        "GDP": "3846413928654",
+        "Country Code": "DE",
+        "Alliance": "NATO"
+    },
+    {
+        "Name": "Greece",
+        "Population": "10569703",
+        "Area": "131,957 ",
+        "Mil Percent GDP": "2.8",
+        "GDP": "188835201626",
+        "Country Code": "GR",
+        "Alliance": "NATO"
+    },
+    {
+        "Name": "Hungary",
+        "Population": "9728337",
+        "Area": "93,028 ",
+        "Mil Percent GDP": "1.6",
+        "GDP": "156743134666",
+        "Country Code": "HU",
+        "Alliance": "NATO"
+    },
+    {
+        "Name": "Iceland",
+        "Population": "354234",
+        "Area": "103,000 ",
+        "Mil Percent GDP": "0",
+        "GDP": "21718075725",
+        "Country Code": "IS",
+        "Alliance": "NATO"
+    },
+    {
+        "Name": "Italy",
+        "Population": "62390364",
+        "Area": "301,340 ",
+        "Mil Percent GDP": "1.6",
+        "GDP": "1892574064222",
+        "Country Code": "IT",
+        "Alliance": "NATO"
+    },
+    {
+        "Name": "Latvia",
+        "Population": "1862687",
+        "Area": "64,589 ",
+        "Mil Percent GDP": "2.3",
+        "GDP": "33645460617",
+        "Country Code": "LV",
+        "Alliance": "NATO"
+    },
+    {
+        "Name": "Lithuania",
+        "Population": "2711566",
+        "Area": "65,300 ",
+        "Mil Percent GDP": "2.1",
+        "GDP": "56546957475",
+        "Country Code": "LT",
+        "Alliance": "NATO"
+    },
+    {
+        "Name": "Luxembourg",
+        "Population": "639589",
+        "Area": "2,586 ",
+        "Mil Percent GDP": "0.8",
+        "GDP": "73353132794",
+        "Country Code": "LU",
+        "Alliance": "NATO"
+    },
+    {
+        "Name": "Montenegro",
+        "Population": "607414",
+        "Area": "13,812 ",
+        "Mil Percent GDP": "2.1",
+        "GDP": "4780722122",
+        "Country Code": "ME",
+        "Alliance": "NATO"
+    },
+    {
+        "Name": "Netherlands",
+        "Population": "17337403",
+        "Area": "41,543 ",
+        "Mil Percent GDP": "1.4",
+        "GDP": "913865395790",
+        "Country Code": "NL",
+        "Alliance": "NATO"
+    },
+    {
+        "Name": "North Macedonia",
+        "Population": "2128262",
+        "Area": "25,713 ",
+        "Mil Percent GDP": "1.3",
+        "GDP": "12116981815",
+        "Country Code": "MK",
+        "Alliance": "NATO"
+    },
+    {
+        "Name": "Norway",
+        "Population": "5509591",
+        "Area": "323,802 ",
+        "Mil Percent GDP": "1.9",
+        "GDP": "362198318435",
+        "Country Code": "NO",
+        "Alliance": "NATO"
+    },
+    {
+        "Name": "Poland",
+        "Population": "38185913",
+        "Area": "312,685 ",
+        "Mil Percent GDP": "2.2",
+        "GDP": "596624355720",
+        "Country Code": "PL",
+        "Alliance": "NATO"
+    },
+    {
+        "Name": "Portugal",
+        "Population": "10263850",
+        "Area": "92,090 ",
+        "Mil Percent GDP": "2.1",
+        "GDP": "228539245045",
+        "Country Code": "PT",
+        "Alliance": "NATO"
+    },
+    {
+        "Name": "Romania",
+        "Population": "21230362",
+        "Area": "238,391 ",
+        "Mil Percent GDP": "2.3",
+        "GDP": "249511333648",
+        "Country Code": "RO",
+        "Alliance": "NATO"
+    },
+    {
+        "Name": "Slovakia",
+        "Population": "5436066",
+        "Area": "49,035 ",
+        "Mil Percent GDP": "1.8",
+        "GDP": "105172564492",
+        "Country Code": "SK",
+        "Alliance": "NATO"
+    },
+    {
+        "Name": "Slovenia",
+        "Population": "2102106",
+        "Area": "20,273 ",
+        "Mil Percent GDP": "1.1",
+        "GDP": "53589609581",
+        "Country Code": "SI",
+        "Alliance": "NATO"
+    },
+    {
+        "Name": "Spain",
+        "Population": "47260584",
+        "Area": "505,370 ",
+        "Mil Percent GDP": "1.4",
+        "GDP": "1281484640044",
+        "Country Code": "ES",
+        "Alliance": "NATO"
+    },
+    {
+        "Name": "Turkey",
+        "Population": "82482383",
+        "Area": "783,562 ",
+        "Mil Percent GDP": "2.8",
+        "GDP": "719954821683",
+        "Country Code": "TR",
+        "Alliance": "NATO"
+    },
+    {
+        "Name": "United Kingdom",
+        "Population": "67081000",
+        "Area": "243,610 ",
+        "Mil Percent GDP": "2.2",
+        "GDP": "2756900214107",
+        "Country Code": "GB",
+        "Alliance": "NATO"
+    },
+    {
+        "Name": "United States",
+        "Population": "334998398",
+        "Area": "9,833,520 ",
+        "Mil Percent GDP": "3.7",
+        "GDP": "20893743833000",
+        "Country Code": "US",
+        "Alliance": "NATO"
+    },
+    {
+        "Name": "Russia",
+        "Population": "146400000",
+        "Area": "17100000 ",
+        "Mil Percent GDP": "4.1",
+        "GDP": "1779000000000",
+        "Country Code": "RU",
+        "Alliance": "CSTO"
+    }, 
+    {
+        "Name": "Kazakhstan",
+        "Population": "19000000",
+        "Area": "2725000",
+        "Mil Percent GDP": "0.51",
+        "GDP": "197100000000",
+        "Country Code": "KZ",
+        "Alliance": "CSTO"
+    },
+    {
+        "Name": "Kyrgyzstan",
+        "Population": "6700000",
+        "Area": "199900",
+        "Mil Percent GDP": "1.67",
+        "GDP": "8543000000",
+        "Country Code": "KG",
+        "Alliance": "CSTO"
+    },
+    {
+        "Name": "Tajikistan",
+        "Population": "9750000",
+        "Area": "143100",
+        "Mil Percent GDP": "1.01",
+        "GDP": "8746000000",
+        "Country Code": "TJ",
+        "Alliance": "CSTO"
+    },
+    {
+        "Name": "Belarus",
+        "Population": "9340000",
+        "Area": "207,600",
+        "Mil Percent GDP": "1.12",
+        "GDP": "68210000000",
+        "Country Code": "BY",
+        "Alliance": "CSTO"
+    },
+    {
+        "Name": "Armenia",
+        "Population": "2790000",
+        "Area": "207,600",
+        "Mil Percent GDP": "4.47",
+        "GDP": "13860000000",
+        "Country Code": "AM",
+        "Alliance": "CSTO"
+    }
+]

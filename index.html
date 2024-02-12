@@ -1,0 +1,1281 @@
+<!DOCTYPE HTML>
+<html>
+
+
+<head>
+
+    <!-- Import CanvasJS -->
+    <link rel="stylesheet" href="style.css">
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/StephanWagner/svgMap@v2.10.1/dist/svgMap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/gh/StephanWagner/svgMap@v2.10.1/dist/svgMap.min.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+    <!-- Charts are Added in Script tage Below -->
+    <script>
+        window.onload = function () {
+
+            let mapNum = ''
+
+            // Brand colors
+            var wpTan = "#E6DFDC";
+            var wpDarkGrey = "#5B5B5B";
+            var wpBlue100 = "#506AB2";
+            var wpBlue50 = "#9BA4C6";
+            var wpBlue25 = "#C8C7D4";
+            var wpRed100 = "#E67368";
+            var wpRed50 = "#E6B4AE";
+            var wpRed25 = "#E6CEC9";
+
+            // Interactive Specific Colors
+            let russiaRed = "#d62c20";
+            let USblue = "#1f409c"
+            let ukraineGold = "#DAA520"
+            let militaryRus = "#8c0c03"
+            let militaryUK = "#CD853F"
+
+            //
+            var chartpxwidth = 780;
+
+            // Highlight variables
+            var activeCountryID = "";
+
+            // Update active function
+            function updateActiveCountry(countryID) {
+                activeCountryID = countryID;
+            }
+
+            // Highlight functions
+            function highlightCountry() {
+                mapElement = document.getElementById(`svgMap${mapNum}-map-country-${activeCountryID}`);
+                mapElement.style.fill = "#FFFF00";
+            }
+            function unhighlightCountry() {
+                mapElement = document.getElementById(`svgMap${mapNum}-map-country-${activeCountryID}`);
+                mapElement.style.fill = "";
+            }
+
+
+            // CanvasJS //Below are the different charts each one has its own scale max and Unit size depending on the size of the sample.
+            //////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////
+            var GDPscalemax = 63063;
+            var GDPunit = GDPscalemax / chartpxwidth;
+            var GDP = new CanvasJS.Chart("GDP-container",
+                {
+                    title: {
+                        text: " ",
+                        fontFamily: "'Assistant', sans-serif",
+                        fontSize: 16,
+                        padding: {
+                            top: 10,
+                            bottom: 10,
+                        },
+                    },
+                    backgroundColor: wpTan,
+                    animationEnabled: true,
+                    dataPointWidth: 25,
+
+                    // Hover tool tip
+                    toolTip: {
+                        backgroundColor: "#000000",
+                        shared: false,
+                        borderColor: "#000000",
+                        fontFamily: "'Assistant', sans-serif",
+                        fontWeight: 400,
+                        fontColor: "#FFFFFF",
+                        cornerRadius: 4
+                    },
+                    axisX: {
+                        labelFontFamily: "'Assistant', sans-serif",
+                        tickColor: wpTan,
+                        labelFontColor: wpDarkGrey,
+                        valueFormatString: " ",
+                        labelFormatter: function () {
+                            return " ";
+                        }
+                    },
+                    axisY: {
+                        labelFontFamily: "'Assistant', sans-serif",
+                        labelFontColor: wpTan,
+                        tickColor: wpTan,
+                        gridColor: wpTan,
+                        prefix: "",
+                        lineThickness: 0,
+                        minimum: 0,
+                        maximum: GDPscalemax,
+                    },
+                    data: [
+                        // Here is the data for the Stacked Bar, this contains all of the data points (This data is entered Manually, the data from the Map is entered in from the JSON file)
+                        {
+                            mouseover: function (e) {
+                                mapNum = ''
+                                if (e.dataPoint.id) {
+                                    updateActiveCountry(e.dataPoint.id);
+                                    highlightCountry();
+                                }
+                            },
+                            mouseout: function (e) {
+                                unhighlightCountry();
+                            },
+                            mousemove: function (e) {
+                                if (e.dataPoint.id !== undefined) {
+
+                                    if (e.dataPoint.id !== activeCountryID) {
+                                        unhighlightCountry();
+                                        updateActiveCountry(e.dataPoint.id);
+                                        highlightCountry();
+                                    }
+                                }
+                            },
+                            type: "stackedBar",
+                            indexLabelFontSize: 20,
+                            indexLabelPlacement: "outside",
+                            yValueFormatString: "0.0 Billion Dollars",
+                            indexLabelFontColor: wpDarkGrey,
+                            indexLabelFontFamily: "Arial, sans-serif",
+                            dataPoints: [
+
+                                { x: 2, label: "Russia", id: "RU", y: 1862.470, color: russiaRed },
+                                { x: 2, y: GDPunit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 2, label: "Kazakhstan", id: "KZ", y: 259.292, color: wpRed100 },
+                                { x: 2, y: GDPunit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 2, label: "Belarus", id: "BY", y: 68.864, color: wpRed100 },
+                                { x: 2, y: GDPunit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 2, label: "Armenia", id: "AM", y: 24.540, color: wpRed100 },
+                                { x: 2, y: GDPunit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 2, label: "Kyrgyzstan", id: "KG", y: 12.681, color: wpRed100 },
+                                { x: 2, y: GDPunit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 2, label: "Tajikistan", id: "TJ", y: 11.816, color: wpRed100 },
+                                { x: 2, y: GDPunit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+
+                                {
+                                    x: 2, y: GDPunit * 8, color: wpTan,
+                                    indexLabel: "2.239 Trillion",
+                                    toolTipContent: null,
+                                    highlightEnabled: false,
+                                    indexLabelFontSize: 16,
+                                },
+
+
+                                { x: 1, label: "US", id: "US", y: 26949.643, color: USblue },
+                                { x: 1, y: GDPunit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 1, label: "Germany", id: "DE", y: 4429.838, color: wpBlue100 },
+                                { x: 1, y: GDPunit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 1, label: "UK", id: "GB", y: 3332.059, color: wpBlue100 },
+                                { x: 1, y: GDPunit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 1, label: "France", id: "FR", y: 3049.016, color: wpBlue100 },
+                                { x: 1, y: GDPunit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 1, label: "Italy", id: "IT", y: 2186.082, color: wpBlue100 },
+                                { x: 1, y: GDPunit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 1, label: "Canada", id: "CA", y: 2117.805, color: wpBlue100 },
+                                { x: 1, y: GDPunit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 1, label: "Spain", id: "ES", y: 1582.054, color: wpBlue100 },
+                                { x: 1, y: GDPunit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 1, label: "Turkey", id: "TR", y: 1154.600, color: wpBlue100 },
+                                { x: 1, y: GDPunit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 1, label: "Netherlands", id: "NL", y: 1092.748, color: wpBlue100 },
+                                { x: 1, y: GDPunit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 1, label: "Poland", id: "PL", y: 842.172, color: wpBlue100 },
+                                { x: 1, y: GDPunit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 1, label: "Belgium", id: "BE", y: 627.511, color: wpBlue100 },
+                                { x: 1, y: GDPunit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 1, label: "Norway", id: "NO", y: 546.768, color: wpBlue100 },
+                                { x: 1, y: GDPunit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 1, label: "Czech Republic", id: "CZ", y: 335.243, color: wpBlue100 },
+                                { x: 1, y: GDPunit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 1, label: "Denmark", id: "DK", y: 420.800, color: wpBlue100 },
+                                { x: 1, y: GDPunit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 1, label: "Romania", id: "RO", y: 350.414, color: wpBlue100 },
+                                { x: 1, y: GDPunit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 1, label: "Finland", id: "FI", y: 305.689, color: wpBlue100 },
+                                { x: 1, y: GDPunit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 1, label: "Portugal", id: "PT", y: 276.432, color: wpBlue100 },
+                                { x: 1, y: GDPunit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 1, label: "Greece", id: "GR", y: 242.385, color: wpBlue100 },
+                                { x: 1, y: GDPunit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 1, label: "Hungary", id: "HU", y: 203.829, color: wpBlue100 },
+                                { x: 1, y: GDPunit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 1, label: "Slovakia", id: "SK", y: 133.044, color: wpBlue100 },
+                                { x: 1, y: GDPunit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 1, label: "Bulgaria", id: "BG", y: 103.099, color: wpBlue100 },
+                                { x: 1, y: GDPunit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 1, label: "Luxembourg", id: "LU", y: 89.095, color: wpBlue100 },
+                                { x: 1, y: GDPunit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 1, label: "Croatia", id: "HR", y: 80.185, color: wpBlue100 },
+                                { x: 1, y: GDPunit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 1, label: "Lithuania", id: "LT", y: 79.427, color: wpBlue100 },
+                                { x: 1, y: GDPunit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 1, label: "Slovenia", id: "SI", y: 68.394, color: wpBlue100 },
+                                { x: 1, y: GDPunit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 1, label: "Latvia", id: "LV", y: 46.668, color: wpBlue100 },
+                                { x: 1, y: GDPunit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 1, label: "Estonia", id: "EE", y: 41.799, color: wpBlue100 },
+                                { x: 1, y: GDPunit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 1, label: "Iceland", id: "IS", y: 30.570, color: wpBlue100 },
+                                { x: 1, y: GDPunit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 1, label: "Albania", id: "AL", y: 23.032, color: wpBlue100 },
+                                { x: 1, y: GDPunit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 1, label: "North Macedonia", id: "MK", y: 15.801, color: wpBlue100 },
+                                { x: 1, y: GDPunit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 1, label: "Montenegro", id: "ME", y: 7.058, color: wpBlue100 },
+                                { x: 1, y: GDPunit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+
+
+                                {
+                                    x: 1, y: GDPunit * 8, color: wpTan,
+                                    indexLabel: "50.76 Trillion",
+                                    toolTipContent: null,
+                                    highlightEnabled: false,
+                                    indexLabelFontSize: 16,
+                                }
+                            ]
+
+                        }
+
+                    ],
+
+                });
+            GDP.render();
+
+            var popScalemax = 1201
+            var popUnit = popScalemax / chartpxwidth
+            var Population = new CanvasJS.Chart("pop-container",
+
+                {
+                    title: {
+                        text: " ",
+                        fontFamily: "'Assistant', sans-serif",
+                        fontSize: 16,
+                        padding: {
+                            top: 10,
+                            bottom: 10,
+                        },
+                    },
+                    backgroundColor: wpTan,
+                    animationEnabled: true,
+                    dataPointWidth: 25,
+                    // Hover tool tip
+                    toolTip: {
+                        backgroundColor: "#000000",
+                        shared: false,
+                        borderColor: "#000000",
+                        fontFamily: "'Assistant', sans-serif",
+                        fontWeight: 400,
+                        fontColor: "#FFFFFF",
+                        cornerRadius: 4,
+                    },
+                    axisX: {
+                        labelFontFamily: "'Assistant', sans-serif",
+                        tickColor: wpTan,
+                        labelFontColor: wpDarkGrey,
+                        valueFormatString: " ",
+                        labelFormatter: function () {
+                            return " ";
+                        }
+                    },
+                    axisY: {
+                        labelFontFamily: "'Assistant', sans-serif",
+                        labelFontColor: wpTan,
+                        tickColor: wpTan,
+                        gridColor: wpTan,
+                        prefix: "",
+                        lineThickness: 0,
+                        minimum: 0,
+                        maximum: popScalemax,
+                    },
+                    data: [
+                        {
+                            mouseover: function (e) {
+                                mapNum = ''
+                                if (e.dataPoint.id) {
+                                    updateActiveCountry(e.dataPoint.id);
+                                    highlightCountry();
+                                }
+                            },
+                            mouseout: function (e) {
+                                unhighlightCountry();
+                            },
+                            mousemove: function (e) {
+                                if (e.dataPoint.id !== undefined) {
+
+                                    if (e.dataPoint.id !== activeCountryID) {
+                                        unhighlightCountry();
+                                        updateActiveCountry(e.dataPoint.id);
+                                        highlightCountry();
+                                    }
+                                }
+                            },
+                            type: "stackedBar",
+                            indexLabelFontSize: 20,
+                            indexLabelPlacement: "outside",
+                            yValueFormatString: "0.0 Million People",
+                            indexLabelFontColor: wpDarkGrey,
+                            indexLabelFontFamily: "Arial, sans-serif",
+                            dataPoints: [
+
+
+                                { x: 2, label: "Russia", id: "RU", y: 143.4, color: russiaRed },
+                                { x: 2, y: popUnit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 2, label: "Kazakhstan", id: "KZ", y: 19, color: wpRed100 },
+                                { x: 2, y: popUnit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 2, label: "Tajikistan", id: "TJ", y: 9.75, color: wpRed100 },
+                                { x: 2, y: popUnit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 2, label: "Belarus", id: "BY", y: 9.34, color: wpRed100 },
+                                { x: 2, y: popUnit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 2, label: "Kyrgyzstan", id: "KG", y: 6.692, color: wpRed100 },
+                                { x: 2, y: popUnit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 2, label: "Armenia", id: "AM", y: 2.791, color: wpRed100 },
+                                { x: 2, y: popUnit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+
+
+
+
+
+                                {
+                                    x: 2, y: popUnit * 8, color: wpTan,
+                                    indexLabel: "191.85 Million",
+                                    toolTipContent: null,
+                                    highlightEnabled: false,
+                                    indexLabelFontSize: 16,
+                                },
+
+
+
+
+                                { x: 1, label: "US", y: 331.9, color: USblue, id: "US" },
+                                { x: 1, y: popUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Turkey", y: 84.78, color: wpBlue100, id: "TR" },
+                                { x: 1, y: popUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Germany", y: 83.2, color: wpBlue100, id: "DE" },
+                                { x: 1, y: popUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "France", y: 67.75, color: wpBlue100, id: "FR" },
+                                { x: 1, y: popUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "UK", y: 67.33, color: wpBlue100, id: "GB" },
+                                { x: 1, y: popUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Italy", y: 59.11, color: wpBlue100, id: "IT" },
+                                { x: 1, y: popUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Spain", y: 47.42, color: wpBlue100, id: "ES" },
+                                { x: 1, y: popUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Canada", y: 38.25, color: wpBlue100, id: "CA" },
+                                { x: 1, y: popUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Poland", y: 37.75, color: wpBlue100, id: "PL" },
+                                { x: 1, y: popUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Romania", y: 19.12, color: wpBlue100, id: "RO" },
+                                { x: 1, y: popUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Netherlands", y: 17.53, color: wpBlue100, id: "NL" },
+                                { x: 1, y: popUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Belgium", y: 11.59, color: wpBlue100, id: "BE" },
+                                { x: 1, y: popUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Greece", y: 10.64, color: wpBlue100, id: "GR" },
+                                { x: 1, y: popUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Czech Republic", y: 10.51, color: wpBlue100, id: "CZ" },
+                                { x: 1, y: popUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Portugal", y: 10.33, color: wpBlue100, id: "PT" },
+                                { x: 1, y: popUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Hungary", y: 9.71, color: wpBlue100, id: "HU" },
+                                { x: 1, y: popUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Bulgaria", y: 6.878, color: wpBlue100, id: "BG" },
+                                { x: 1, y: popUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Denmark", y: 5.857, color: wpBlue100, id: "DK" },
+                                { x: 1, y: popUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Finland", y: 5.541, color: wpBlue100, id: "FI" },
+                                { x: 1, y: popUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Slovakia", y: 5.447, color: wpBlue100, id: "SK" },
+                                { x: 1, y: popUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Norway", y: 5.408, color: wpBlue100, id: "NO" },
+                                { x: 1, y: popUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Croatia", y: 3.899, color: wpBlue100, id: "HR" },
+                                { x: 1, y: popUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Albania", y: 2.812, color: wpBlue100, id: "AL" },
+                                { x: 1, y: popUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Lithuania", y: 2.801, color: wpBlue100, id: "LT" },
+                                { x: 1, y: popUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Slovenia", y: 2.108, color: wpBlue100, id: "SI" },
+                                { x: 1, y: popUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "North Macedonia", y: 2.065, color: wpBlue100, id: "MK" },
+                                { x: 1, y: popUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Latvia", y: 1.884, color: wpBlue100, id: "LV" },
+                                { x: 1, y: popUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Estonia", y: 1.331, color: wpBlue100, id: "EE" },
+                                { x: 1, y: popUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Luxembourg", y: 0.64, color: wpBlue100, id: "LU" },
+                                { x: 1, y: popUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Montenegro", y: 0.619, color: wpBlue100, id: "ME" },
+                                { x: 1, y: popUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Iceland", y: 0.372, color: wpBlue100, id: "IS" },
+                                { x: 1, y: popUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+
+
+                                {
+                                    x: 1, y: popUnit * 8, color: wpTan,
+                                    indexLabel: "956.39 million",
+                                    toolTipContent: null,
+                                    highlightEnabled: false,
+                                    indexLabelFontSize: 16,
+                                },
+
+                            ]
+                        }
+                    ]
+                });
+            Population.render();
+
+            var sizeScaleMax = 35000000
+            var scaleUnit = sizeScaleMax / chartpxwidth
+            var geographicSize = new CanvasJS.Chart("size-container",
+
+                {
+                    title: {
+                        text: " ",
+                        fontFamily: "'Assistant', sans-serif",
+                        fontSize: 16,
+                        padding: {
+                            top: 10,
+                            bottom: 10,
+                        },
+                    },
+                    backgroundColor: wpTan,
+                    animationEnabled: true,
+                    dataPointWidth: 25,
+                    // Hover tool tip
+                    toolTip: {
+                        backgroundColor: "#000000",
+                        shared: false,
+                        borderColor: "#000000",
+                        fontFamily: "'Assistant', sans-serif",
+                        fontWeight: 400,
+                        fontColor: "#FFFFFF",
+                        cornerRadius: 4,
+                    },
+                    axisX: {
+                        labelFontFamily: "'Assistant', sans-serif",
+                        tickColor: wpTan,
+                        labelFontColor: wpDarkGrey,
+                        valueFormatString: " ",
+                        labelFormatter: function () {
+                            return " ";
+                        }
+                    },
+                    axisY: {
+                        labelFontFamily: "'Assistant', sans-serif",
+                        labelFontColor: wpTan,
+                        tickColor: wpTan,
+                        gridColor: wpTan,
+                        prefix: "",
+                        lineThickness: 0,
+                        minimum: 0,
+                        maximum: sizeScaleMax,
+                    },
+                    data: [
+                        {
+                            mouseover: function (e) {
+                                mapNum = ''
+                                if (e.dataPoint.id) {
+                                    updateActiveCountry(e.dataPoint.id);
+                                    highlightCountry();
+                                }
+                            },
+                            mouseout: function (e) {
+                                unhighlightCountry();
+                            },
+                            mousemove: function (e) {
+                                if (e.dataPoint.id !== undefined) {
+
+                                    if (e.dataPoint.id !== activeCountryID) {
+                                        unhighlightCountry();
+                                        updateActiveCountry(e.dataPoint.id);
+                                        highlightCountry();
+                                    }
+                                }
+                            },
+                            type: "stackedBar",
+                            indexLabelFontSize: 20,
+                            indexLabelPlacement: "outside",
+                            yValueFormatString: "0.0 km²",
+                            indexLabelFontColor: wpDarkGrey,
+                            indexLabelFontFamily: "Arial, sans-serif",
+                            dataPoints: [
+
+
+                                { x: 2, label: "Russia", id: "RU", y: 17100000, color: russiaRed },
+                                { x: 2, y: scaleUnit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 2, label: "Kazakhstan", id: "KZ", y: 2725000, color: wpRed100 },
+                                { x: 2, y: scaleUnit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 2, label: "Belarus", id: "BY", y: 207600, color: wpRed100 },
+                                { x: 2, y: scaleUnit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 2, label: "Kyrgyzstan", id: "KG", y: 199900, color: wpRed100 },
+                                { x: 2, y: scaleUnit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 2, label: "Tajikistan", id: "TJ", y: 143100, color: wpRed100 },
+                                { x: 2, y: scaleUnit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 2, label: "Armenia", id: "AM", y: 29743, color: wpRed100 },
+                                { x: 2, y: scaleUnit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+
+
+
+
+                                {
+                                    x: 2, y: scaleUnit * 8, color: wpTan,
+                                    indexLabel: "20.4 million km²",
+                                    toolTipContent: null,
+                                    highlightEnabled: false,
+                                    indexLabelFontSize: 16,
+                                },
+
+
+
+                                { x: 1, label: "US", id: "US", y: 9834000, color: USblue },
+                                { x: 1, y: scaleUnit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 1, label: "Canada", y: 9985000, color: wpBlue100, id: "CA" },
+                                { x: 1, y: scaleUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Turkey", y: 783562, color: wpBlue100, id: "TR" },
+                                { x: 1, y: scaleUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "France", y: 643801, color: wpBlue100, id: "FR" },
+                                { x: 1, y: scaleUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Spain", y: 506029, color: wpBlue100, id: "ES" },
+                                { x: 1, y: scaleUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Norway", y: 385206, color: wpBlue100, id: "NO" },
+                                { x: 1, y: scaleUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Germany", y: 357592, color: wpBlue100, id: "DE" },
+                                { x: 1, y: scaleUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Finland", y: 338462, color: wpBlue100, id: "FI" },
+                                { x: 1, y: scaleUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Poland", y: 311888, color: wpBlue100, id: "PL" },
+                                { x: 1, y: scaleUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Italy", y: 301340, color: wpBlue100, id: "IT" },
+                                { x: 1, y: scaleUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "UK", y: 243610, color: wpBlue100, id: "GB" },
+                                { x: 1, y: scaleUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Romania", y: 238400, color: wpBlue100, id: "RO" },
+                                { x: 1, y: scaleUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Greece", y: 131960, color: wpBlue100, id: "GR" },
+                                { x: 1, y: scaleUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Bulgaria", y: 110990, color: wpBlue100, id: "BG" },
+                                { x: 1, y: scaleUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Iceland", y: 103000, color: wpBlue100, id: "IS" },
+                                { x: 1, y: scaleUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Hungary", y: 93026, color: wpBlue100, id: "HU" },
+                                { x: 1, y: scaleUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Portugal", y: 92152, color: wpBlue100, id: "PT" },
+                                { x: 1, y: scaleUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Czech Republic", y: 78871, color: wpBlue100, id: "CZ" },
+                                { x: 1, y: scaleUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Lithuania", y: 65300, color: wpBlue100, id: "LT" },
+                                { x: 1, y: scaleUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Latvia", y: 64589, color: wpBlue100, id: "LV" },
+                                { x: 1, y: scaleUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Croatia", y: 56594, color: wpBlue100, id: "HR" },
+                                { x: 1, y: scaleUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Slovakia", y: 49035, color: wpBlue100, id: "SK" },
+                                { x: 1, y: scaleUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Estonia", y: 45339, color: wpBlue100, id: "EE" },
+                                { x: 1, y: scaleUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Denmark", y: 42952, color: wpBlue100, id: "DK" },
+                                { x: 1, y: scaleUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Netherlands", y: 41850, color: wpBlue100, id: "NL" },
+                                { x: 1, y: scaleUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Belgium", y: 30688, color: wpBlue100, id: "BE" },
+                                { x: 1, y: scaleUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Albania", y: 28748, color: wpBlue100, id: "AL" },
+                                { x: 1, y: scaleUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "North Macedonia", y: 25710, color: wpBlue100, id: "MK" },
+                                { x: 1, y: scaleUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Slovenia", y: 20270, color: wpBlue100, id: "SI" },
+                                { x: 1, y: scaleUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Montenegro", y: 13810, color: wpBlue100, id: "ME" },
+                                { x: 1, y: scaleUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+                                { x: 1, label: "Luxembourg", y: 2590, color: wpBlue100, id: "LU" },
+                                { x: 1, y: scaleUnit, color: wpTan, toolTipContent: null, highlightEnabled: false },
+
+
+
+
+
+                                {
+                                    x: 1, y: scaleUnit * 8, color: wpTan,
+                                    indexLabel: "24.62 million km²",
+                                    toolTipContent: null,
+                                    highlightEnabled: false,
+                                    indexLabelFontSize: 16,
+                                },
+
+                            ]
+                        }
+                    ]
+                });
+            geographicSize.render();
+
+
+
+            // UKRAINE V RUSSIA // SECOND MAP ////////
+            var ruUKGDPScaleMax = 3100
+            var RUUKGDPUnit = ruUKGDPScaleMax / chartpxwidth
+            var RuUKGDP = new CanvasJS.Chart("ruUKGDP-container",
+
+                {
+                    title: {
+                        text: " ",
+                        fontFamily: "'Assistant', sans-serif",
+                        fontSize: 16,
+                        padding: {
+                            top: 10,
+                            bottom: 10,
+                        },
+                    },
+                    backgroundColor: wpTan,
+                    animationEnabled: true,
+                    dataPointWidth: 25,
+                    // Hover tool tip
+                    toolTip: {
+                        backgroundColor: "#000000",
+                        shared: false,
+                        borderColor: "#000000",
+                        fontFamily: "'Assistant', sans-serif",
+                        fontWeight: 400,
+                        fontColor: "#FFFFFF",
+                        cornerRadius: 4,
+                    },
+                    axisX: {
+                        labelFontFamily: "'Assistant', sans-serif",
+                        tickColor: wpTan,
+                        labelFontColor: wpDarkGrey,
+                        valueFormatString: " ",
+                        labelFormatter: function () {
+                            return " ";
+                        }
+                    },
+                    axisY: {
+                        labelFontFamily: "'Assistant', sans-serif",
+                        labelFontColor: wpTan,
+                        tickColor: wpTan,
+                        gridColor: wpTan,
+                        prefix: "",
+                        lineThickness: 0,
+                        minimum: 0,
+                        maximum: ruUKGDPScaleMax,
+                    },
+                    data: [
+                        {
+                            mouseover: function (e) {
+                                mapNum = '2'
+                                if (e.dataPoint.id) {
+                                    updateActiveCountry(e.dataPoint.id);
+                                    highlightCountry();
+                                }
+                            },
+                            mouseout: function (e) {
+                                unhighlightCountry();
+                            },
+                            mousemove: function (e) {
+                                if (e.dataPoint.id !== undefined) {
+
+                                    if (e.dataPoint.id !== activeCountryID) {
+                                        unhighlightCountry();
+                                        updateActiveCountry(e.dataPoint.id);
+                                        highlightCountry();
+                                        
+                                    }
+                                }
+                            },
+                            type: "stackedBar",
+                            indexLabelFontSize: 20,
+                            indexLabelPlacement: "outside",
+                            yValueFormatString: "~ 0.0 Billion Dollars",
+                            indexLabelFontColor: wpDarkGrey,
+                            indexLabelFontFamily: "Arial, sans-serif",
+                            dataPoints: [
+
+                                { x: 6, label: "Russian Military Budget (3.72% of GDP)", id: "RU", y: 68.29920, color: militaryRus },
+                                { x: 6, y: RUUKGDPUnit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 6, label: "Remaining Russian GDP", id: "RU", y: 1767.780, color: russiaRed },
+                                { x: 6, y: RUUKGDPUnit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+
+                                {
+                                    x: 6, y: RUUKGDPUnit * 8, color: wpTan,
+                                    indexLabel: "~1.836 Trillion Dollars (2021)",
+                                    toolTipContent: null,
+                                    highlightEnabled: false,
+                                    indexLabelFontSize: 16,
+                                },
+
+                                { x: 5, label: "Ukrainian Military Budget (3.23% of GDP)", id: "UA", y: 6.46, color: militaryUK },
+                                { x: 5, y: RUUKGDPUnit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 5, label: "Remaining Ukrainian GDP", id: "UA", y: 193.46, color: ukraineGold },
+                                { x: 5, y: RUUKGDPUnit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+
+                                {
+                                    x: 5, y: RUUKGDPUnit * 8, color: wpTan,
+                                    indexLabel: "~200.1 Billion Dollars (2021)",
+                                    toolTipContent: null,
+                                    highlightEnabled: false,
+                                    indexLabelFontSize: 16,
+                                },
+
+                                { x: 4, label: "Russian Military Budget (4.1% of GDP)",id:"RU", y: 91.84, color: militaryRus },
+                                { x: 4, y: RUUKGDPUnit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 4, label: "Remaining Russian GDP", id:"RU", y: 2148.16, color: russiaRed },
+                                { x: 4, y: RUUKGDPUnit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+
+                                {
+                                    x: 4, y: RUUKGDPUnit * 8, color: wpTan,
+                                    indexLabel: "~2.24 Trillion Dollars (2022)",
+                                    toolTipContent: null,
+                                    highlightEnabled: false,
+                                    indexLabelFontSize: 16,
+                                },
+
+                                { x: 3, label: "Ukrainian Military Budget (33.55%)", id:"UA", y: 53.3445, color: militaryUK },
+                                { x: 3, y: RUUKGDPUnit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                { x: 3, label: "Remaining Ukrainian GDP", id:"UA", y: 105.6555, color: ukraineGold },
+                                { x: 3, y: RUUKGDPUnit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+
+                                {
+                                    x: 3, y: RUUKGDPUnit * 8, color: wpTan,
+                                    indexLabel: "~159 Billion Dollars (2022)",
+                                    toolTipContent: null,
+                                    highlightEnabled: false,
+                                    indexLabelFontSize: 16,
+                                },
+
+
+                            ]
+                        }
+                    ]
+                });
+            RuUKGDP.render();
+
+
+            var ruUKSizeMax = 20100000
+            var ruUKSizeUnit = ruUKSizeMax / chartpxwidth
+            var RuUKSize = new CanvasJS.Chart("RuUKSize-container",
+                {
+                    title: {
+                        text: " ",
+                        fontFamily: "'Assistant', sans-serif",
+                        fontSize: 16,
+                        padding: {
+                            top: 10,
+                            bottom: 10,
+                        },
+                    },
+                    backgroundColor: wpTan,
+                    animationEnabled: true,
+                    dataPointWidth: 25,
+                    // Hover tool tip
+                    toolTip: {
+                        backgroundColor: "#000000",
+                        shared: false,
+                        borderColor: "#000000",
+                        fontFamily: "'Assistant', sans-serif",
+                        fontWeight: 400,
+                        fontColor: "#FFFFFF",
+                        cornerRadius: 4,
+                    },
+                    axisX: {
+                        labelFontFamily: "'Assistant', sans-serif",
+                        tickColor: wpTan,
+                        labelFontColor: wpDarkGrey,
+                        valueFormatString: " ",
+                        labelFormatter: function () {
+                            return " ";
+                        }
+                    },
+                    axisY: {
+                        labelFontFamily: "'Assistant', sans-serif",
+                        labelFontColor: wpTan,
+                        tickColor: wpTan,
+                        gridColor: wpTan,
+                        prefix: "",
+                        lineThickness: 0,
+                        minimum: 0,
+                        maximum: ruUKSizeMax,
+                    },
+                    data: [
+                        {
+                            mouseover: function (e) {
+                                mapNum = '2'
+                                if (e.dataPoint.id) {
+                                    updateActiveCountry(e.dataPoint.id);
+                                    highlightCountry();
+                                }
+                            },
+                            mouseout: function (e) {
+                                unhighlightCountry();
+                            },
+                            mousemove: function (e) {
+                                if (e.dataPoint.id !== undefined) {
+
+                                    if (e.dataPoint.id !== activeCountryID) {
+                                        unhighlightCountry();
+                                        updateActiveCountry(e.dataPoint.id);
+                                        highlightCountry();
+                                    }
+                                }
+                            },
+                            type: "stackedBar",
+                            indexLabelFontSize: 20,
+                            indexLabelPlacement: "outside",
+                            yValueFormatString: "0.0 km²",
+                            indexLabelFontColor: wpDarkGrey,
+                            indexLabelFontFamily: "Arial, sans-serif",
+                            dataPoints: [
+
+
+                                { x: 2, label: "Russia", id: "RU", y: 17100000, color: russiaRed },
+                                { x: 2, y: ruUKSizeUnit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                {
+                                    x: 2, y: ruUKSizeUnit * 8, color: wpTan,
+                                    indexLabel: "17.1 Million km²",
+                                    toolTipContent: null,
+                                    highlightEnabled: false,
+                                    indexLabelFontSize: 16,
+                                },
+
+                                { x: 1, label: "Ukraine", id:"UA",y: 603628, color: ukraineGold },
+                                { x: 1, y: ruUKSizeUnit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+
+                                {
+                                    x: 1, y: ruUKSizeUnit * 8, color: wpTan,
+                                    indexLabel: "603,628 km²",
+                                    toolTipContent: null,
+                                    highlightEnabled: false,
+                                    indexLabelFontSize: 16,
+                                },
+
+                            ]
+                        }
+                    ]
+                });
+            RuUKSize.render();
+
+            var ruUKPopMax = 200
+            var ruUKPopUnit = ruUKPopMax / chartpxwidth
+            var RuUKSPop = new CanvasJS.Chart("RuUKPop-container",
+
+                {
+                    title: {
+                        text: " ",
+                        fontFamily: "'Assistant', sans-serif",
+                        fontSize: 16,
+                        padding: {
+                            top: 10,
+                            bottom: 10,
+                        },
+                    },
+                    backgroundColor: wpTan,
+                    animationEnabled: true,
+                    dataPointWidth: 25,
+                    // Hover tool tip
+                    toolTip: {
+                        backgroundColor: "#000000",
+                        shared: false,
+                        borderColor: "#000000",
+                        fontFamily: "'Assistant', sans-serif",
+                        fontWeight: 400,
+                        fontColor: "#FFFFFF",
+                        cornerRadius: 4,
+                    },
+                    axisX: {
+                        labelFontFamily: "'Assistant', sans-serif",
+                        tickColor: wpTan,
+                        labelFontColor: wpDarkGrey,
+                        valueFormatString: " ",
+                        labelFormatter: function () {
+                            return " ";
+                        }
+                    },
+                    axisY: {
+                        labelFontFamily: "'Assistant', sans-serif",
+                        labelFontColor: wpTan,
+                        tickColor: wpTan,
+                        gridColor: wpTan,
+                        prefix: "",
+                        lineThickness: 0,
+                        minimum: 0,
+                        maximum: ruUKPopMax,
+                    },
+                    data: [
+                        {
+                            mouseover: function (e) {
+                                mapNum = '2'
+                                if (e.dataPoint.id) {
+                                    updateActiveCountry(e.dataPoint.id);
+                                    highlightCountry();
+                                }
+                            },
+                            mouseout: function (e) {
+                                unhighlightCountry();
+                            },
+                            mousemove: function (e) {
+                                if (e.dataPoint.id !== undefined) {
+
+                                    if (e.dataPoint.id !== activeCountryID) {
+                                        unhighlightCountry();
+                                        updateActiveCountry(e.dataPoint.id);
+                                        highlightCountry();
+                                    }
+                                }
+                            },
+                            type: "stackedBar",
+                            indexLabelFontSize: 20,
+                            indexLabelPlacement: "outside",
+                            yValueFormatString: "0.0 Million People",
+                            indexLabelFontColor: wpDarkGrey,
+                            indexLabelFontFamily: "Arial, sans-serif",
+                            dataPoints: [
+
+
+                                { x: 3, label: "Russia", id: "RU", y: 146.4, color: russiaRed },
+                                { x: 3, y: ruUKPopUnit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+                                {
+                                    x: 3, y: ruUKPopUnit * 8, color: wpTan,
+                                    indexLabel: "146.4 Million People",
+                                    toolTipContent: null,
+                                    highlightEnabled: false,
+                                    indexLabelFontSize: 16,
+                                },
+
+                                { x: 2, label: "Ukraine 2021", id: "UA", y: 43.79, color: ukraineGold },
+                                { x: 2, y: ruUKPopUnit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+
+                                {
+                                    x: 2, y: ruUKPopUnit * 8, color: wpTan,
+                                    indexLabel: "43.79 Million People (2021)",
+                                    toolTipContent: null,
+                                    highlightEnabled: false,
+                                    indexLabelFontSize: 16,
+                                },
+
+                                { x: 1, label: "Ukraine 2022", id: "UA", y: 38, color: ukraineGold },
+                                { x: 1, y: ruUKPopUnit, color: wpTan, toolTipContent: null, highlightEnabled: false, },
+
+
+                                {
+                                    x: 1, y: ruUKPopUnit * 8, color: wpTan,
+                                    indexLabel: "38 Million People (2022)",
+                                    toolTipContent: null,
+                                    highlightEnabled: false,
+                                    indexLabelFontSize: 16,
+                                },
+
+
+
+                            ]
+                        }
+                    ]
+                });
+            RuUKSPop.render();
+        }
+
+
+    </script>
+
+
+    <!-- Map code is here -->
+    <script>
+
+        fetch('Countries.json')
+            .then(response => response.json())
+            .then(data => {
+                // Process the data to fit svgMap requirements
+                let mapValues = {};
+                data.forEach(country => {
+
+                    let allianceColor = '#000000'; // Default, no alliance
+
+                    //Coloring Countries Based on Alliance
+                    if (country.Alliance === "NATO") {
+                        allianceColor = '#506AB2';
+                    } else if (country.Alliance === "CSTO") {
+                        allianceColor = '#E67368';
+                    }
+
+
+                    //Dynamically getting info from JSON
+                    mapValues[country['Country Code']] = {
+                        gdp: country.GDP,
+                        population: country.Population,
+                        area: country.Area,
+                        milPercentGDP: country["Mil Percent GDP"],
+                        alliance: country.Alliance,
+                        color: allianceColor
+                    };
+                });
+
+                // Initializing the SVG map with the data from the JSON
+                let map1 = new svgMap({
+                    targetElementID: 'svgMap',
+                    mouseWheelZoomEnabled: false,
+                    mouseWheelZoomWithKey: false,
+                    noDataText: "Not aligned with NATO or CSTO",
+                    data: {
+                        data: {
+                            gdp: {
+                                name: 'GDP',
+                                format: '{0} USD (2021)',
+                                thousandSeparator: ',',
+                                thresholdMax: 50000,
+                                thresholdMin: 1000
+                            },
+                            population: {
+                                name: 'Population',
+                                format: '{0} People',
+                                thousandSeparator: ','
+                            },
+                            area: {
+                                name: 'Area',
+                                format: '{0} km²',
+                                thousandSeparator: ','
+                            },
+                            milPercentGDP: {
+                                name: '% of GDP to Mil',
+                                format: '{0} %',
+                                thousandSeparator: ','
+                            },
+                            alliance: {
+                                name: "Alliance",
+                                format: ''
+                            }
+                        },
+                        applyData: 'gdp',
+                        applyData: 'population',
+                        applyData: 'area',
+                        applyData: 'milPercentGDP',
+                        values: mapValues
+                    },
+                    onGetTooltip: (tooltipDiv, countryID, countryValues) => {
+
+                        // Check if the country has the relevant data
+                        if (countryValues || (countryValues.population === undefined && countryValues.area === undefined && countryValues.milPercentGDP === undefined && countryValues.alliance === undefined)) {
+
+                            // Return an empty string or a very minimal message to effectively disable the tooltip for this country
+
+                            return ''; // You can also return a message like 'No data available'
+                        }
+                    }
+
+                });
+
+                let map2 = new svgMap({
+                    targetElementID: 'svgMap2',
+                    mouseWheelZoomEnabled: false,
+                    mouseWheelZoomWithKey: false,
+                    initialZoom: 1.0,
+                    initialPan: { x: 1400, y: 60 },
+                    data: {
+                        data: {
+                            gdp: {
+                                name: 'GDP',
+                                format: '{0} USD (2021)',
+                                thousandSeparator: ',',
+                                thresholdMax: 50000,
+                                thresholdMin: 1000
+                            },
+                            population: {
+                                name: 'Population',
+                                format: '{0} People',
+                                thousandSeparator: ',',
+                                thresholdMax: 50000,
+                                thresholdMin: 1000
+                            },
+                            area: {
+                                name: 'Area',
+                                format: '{0} km²',
+                                thousandSeparator: ','
+                            },
+                            Mil_Percent_GDP: {
+                                name: '% of GDP to Mil',
+                                format: '{0} %',
+                                thousandSeparator: ',',
+                                thresholdMax: 50000,
+                                thresholdMin: 1000
+                            }
+
+                        },
+                        applyData: 'gdp',
+                        applyData: 'population',
+                        applyData: 'Mil_Percent_GDP',
+                        values: {
+                            RU: { gdp: 1779000000000, color: '#D62C20', population: "146400000", area: "17100000", Mil_Percent_GDP: "4.1" },
+                            UA: { gdp: 200100000000, color: '#DAA520', population: "43790000", area: "603628", Mil_Percent_GDP: "3.23%(2021)   33.55%(2022)" },
+                        }
+                    },
+                    onGetTooltip: (tooltipDiv, countryID, countryValues) => {
+                        // Check if the country has the relevant data
+                        if (countryValues || (countryValues.population === undefined && countryValues.area === undefined && countryValues.milPercentGDP === undefined && countryValues.alliance === undefined)) {
+                            // Return an empty string or a very minimal message to effectively disable the tooltip for this country
+                            return ''; // You can also return a message like 'No data available'
+                        }
+                    }
+                });
+
+
+            })
+            .catch(error => console.error('Error fetching the country data:', error));
+
+
+
+    </script>
+
+
+    <!-- Remaining HTML for Chart and Map Containers -->
+    <section
+        style="text-align: center; background-color: #E6DFDC; font-family: Assistant, sans-serif; font-weight: 400; color: #5B5B5B">
+        <div id="svgMap" style="height: 370px; overflow: hidden;"></div>
+        <hr>
+        <br>
+        <br>
+        GDP
+        <div id="GDP-container" style="width: 780px; height: 160px; margin: 0px auto;"></div>
+        POP
+        <div id="pop-container" style="width: 780px; height: 160px; margin: 0px auto;"></div>
+
+        SIZ
+        <div id="size-container" style="width: 780px; height: 160px; margin: 0px auto;"></div>
+        <hr>
+        <div id="svgMap2" style="height: 270px; overflow: hidden;"></div>
+        <br>
+        <br>
+        GDP & PERCENT OF GDP SPENT ON MILITARY
+        <div id="ruUKGDP-container" style="width: 780px; height: 240px; margin: 0px auto;"></div>
+
+        POP
+        <div id="RuUKPop-container" style="width: 780px; height: 160px; margin: 0px auto;"></div>
+
+        SIZE
+        <div id="RuUKSize-container" style="width: 780px; height: 160px; margin: 0px auto;"></div>
+
+    </section>
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css?family=Assistant');
+
+
+/* BACKGROUND FOR THE MAP */
+.svgMap-map-image{
+    background-color: #E6DFDC;
+    padding: 0px;
+    margin: 0px;
+}
+
+/* CONTROL BUTTONS */
+.svgMap-control-button{
+    display: none;
+}
+
+
+/* POPUP */
+.svgMap-tooltip-content-container{
+    font-family: Assistant, sans-serif;
+    background-color: #000000;
+    color: white;
+}
+
+span .data-color{
+    background-color: #777;
+}
+
+
+/* .svgMap-tooltip-pointer{
+} */
+
+.svgMap-tooltip-data{padding:2px 0;color:#777;font-style:italic}
+
+
+.svgMap-tooltip-content-data{
+ color: white;
+}
+
+table{
+    color: rgb(179, 179, 179);
+}
+
+.svgMap-tooltip-content table tbody span{
+    color: white !important;
+}
+
+body{
+    margin:  0px;
+}
